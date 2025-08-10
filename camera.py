@@ -13,7 +13,7 @@ class VideoCamera(object):
     def __init__(self, flip = False, file_type  = ".jpg", photo_string= "stream_photo"):
         # self.vs = PiVideoStream(resolution=(1920, 1080), framerate=30).start()
         self.picam2 = Picamera2()
-        self.picam2.configure(self.picam2.create_preview_configuration({'format': 'RGB888'}))
+        self.picam2.configure(self.picam2.create_preview_configuration({'format': 'RGB888', 'size': (2304, 1296)}))
         self.picam2.start()
         self.flip = flip # Flip frame vertically
         self.file_type = file_type # image type i.e. .jpg
