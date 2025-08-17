@@ -5,7 +5,7 @@
 # import the necessary packages
 from flask import Flask, render_template, Response, request, send_from_directory
 from camera import VideoCamera
-import os
+
 
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
 
@@ -32,6 +32,16 @@ def video_feed():
 @app.route('/picture')
 def take_picture():
     pi_camera.take_picture()
+    return "None"
+
+@app.route('/video')
+def take_video():
+    pi_camera.take_video()
+    return "None"
+
+@app.route('/stop_video')
+def stop_video():
+    pi_camera.stop_video()
     return "None"
 
 if __name__ == '__main__':

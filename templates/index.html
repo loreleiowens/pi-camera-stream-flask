@@ -3,12 +3,124 @@
 <head>
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="templates/style.css">
 </head>
 
 <title>Box Brownie - Stream</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+  background-color: black;
+  opacity:0.6;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+
+}
+
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.main {
+  padding: 16px;
+  margin-bottom: 30px;
+}
+
+
+.camera-movement{
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lights-button{
+	float: right;
+}
+
+i.fa {
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0px 0px 2px #888;
+  padding: 0.5em 0.6em;
+
+
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+.camera-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+
+    /* Full height */
+  height: 100%;
+
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+}
+
+
+
+</style>
 
 <body>
 
@@ -36,12 +148,20 @@
          </a>
     </div>
 
-    <div class="video">
+    <!-- <div class="video">
       <a href=# id=take-video class="video_class">
           <button id="take-video-button" onclick="take_video()">
-              <i style="background: #F53532; color: white;" class="fa fa-video fa-2x" aria-hidden="true"></i>
+              <i id="start-video" style="background: #F53532; color: white;" class="fa fa-video-camera fa-2x"  aria-hidden="true"></i>
+              <i id="end-video" style="background: #F53532; color: white; display: none;" class="fa fa-square fa-2x"  aria-hidden="true"></i>
           </button>
      </a>
+
+     <div class="stop-video">
+      <a href=# id=take-video class="video_class">
+          <button id="take-video-button" onclick="stop_video()">
+              <i id="end-video" style="background: #F53532; color: white;" class="fa fa-square fa-2x"  aria-hidden="true"></i>
+          </button>
+     </a> -->
 </div>
 
 </div>
@@ -50,7 +170,77 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<script src="templates/script.js"></script>
 
+<script>
+
+
+// stop stream - called when pressing red X
+var button = document.getElementById('button');
+
+button.onclick = function() {
+    var div = document.getElementById('newpost');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+};
+
+// Take and save a photo, call picture function in main.py
+$(function() {
+  $('a#take-picture').on('click', function(e) {
+    e.preventDefault()
+    $.getJSON('/picture',
+        function(data) {
+      //do nothing
+    });
+    return false;
+  });
+});
+
+
+// Takes a video
+$(function() {
+    $('a#take-video').on('click', function(e) {
+      e.preventDefault()
+      $.getJSON('/video',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+  });
+
+// Stops the video
+// Takes a video
+$(function() {
+    $('a#stop-video').on('click', function(e) {
+      e.preventDefault()
+      $.getJSON('/stop_video',
+          function(data) {
+        //do nothing
+      });
+      return false;
+    });
+  });
+
+
+
+// take picture
+var button = document.getElementById('take-pica-button');
+
+button.onclick = function() {
+    var div = document.getElementById('newpost');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+};
+
+
+</script>
 </body>
 </html>
